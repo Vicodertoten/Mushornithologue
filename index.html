@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Exploration des Oiseaux</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Oiseaux - Exploration & Révision</h1>
+    <button class="btn-nav" onclick="switchMode('exploration')">🦉 Mode Exploration</button>
+    <button class="btn-nav" onclick="switchMode('revision')">🎧 Mode Révision</button>
+  </header>
+
+  <!-- Mode Exploration -->
+  <main id="explorationSection">
+    <div id="speciesGrid" class="grid"></div>
+  </main>
+
+ 
+  <!-- Modal pour fiche détaillée -->
+  <div id="modal" class="modal hidden">
+    <button class="modal-nav left" onclick="navigateModal(-1)">&#8678;</button>
+  
+    <div class="modal-content">
+      <span id="closeModal" class="close">&times;</span>
+      <div id="modalContent"></div>
+    </div>
+  
+    <button class="modal-nav right" onclick="navigateModal(1)">&#8680;</button>
+  </div>
+  
+
+
+
+<!-- Mode Révision -->
+<main id="revisionSection" class="hidden quiz-container">
+  <div id="scoreBoard" style="margin-bottom: 1rem; font-weight: bold;">Score : 0 / 0 — Précision : 0%</div>
+  <div id="quizContent"></div>
+  <input type="text" id="guessInput" placeholder="Entrez le nom de l'oiseau" />
+  <button id="validateButton" onclick="checkAnswer()">Valider</button>
+  <div id="result"></div>
+
+</main>
+<script src="exploration_final_with_icons.js"></script>
+</body>
+</html>
