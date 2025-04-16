@@ -1,13 +1,47 @@
+:root {
+  --color-primary: #6B8E75;       /* Sage Green - vert doux naturel */
+  --color-accent: #82B1FF;        /* Sky Blue - bleu ciel */
+  --color-bg: #F5F5EF;            /* Eggshell - fond clair */
+  --color-bg-dark: #2E3D32;       /* Charcoal - fond sombre */
+  --color-text: #2C2C2C;          /* Dark Slate - texte principal */
+  --color-text-muted: #7B8D7D;    /* Ash Grey - texte secondaire */
+  --color-highlight: #F5EAC3;     /* Soft Amber - survol / sélection */
+
+  --color-card-bg: #ffffff;
+  --color-card-shadow: rgba(0, 0, 0, 0.1);
+}
+
 body {
   font-family: sans-serif;
   margin: 0;
   background: #f8f9fa;
 }
 
+.site-header {
+  text-align: center;
+  padding: 0rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header-logo {
+  max-height: 300px;
+  height: auto;
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: -2rem; /* Optionnel : remonte un peu plus */
+}
+
+
 header {
   padding: 1rem;
   text-align: center;
-  background-color: #007BFF;
   color: white;
 }
 
@@ -116,7 +150,7 @@ header {
 }
 
 .hidden { display: none; }
-.btn-nav { margin: 1rem; padding: 0.5rem 1rem; cursor: pointer; border: none; border-radius: 5px; background: #007BFF; color: white; }
+.btn-nav { margin: 1rem; padding: 0.5rem 1rem; cursor: pointer; border: none; border-radius: 5px; background: #82B1FF	; color: white; }
 .quiz-container { padding: 2rem; max-width: 800px; margin: auto; text-align: center; }
 .carousel { position: relative; max-width: 100%; margin-bottom: 1rem; }
 .carousel img { width: 100%; height: auto; border-radius: 0.5rem; }

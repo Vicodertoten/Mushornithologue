@@ -8,6 +8,37 @@ fetch("birds_enriched_allaboutbirds.json")
     renderCards(data);
   });
 
+  function normalize(text) {
+    return text
+      .toLowerCase()
+      .normalize("NFD") // enlève accents
+      .replace(/[\u0300-\u036f]/g, "") // enlève caractères d’accentuation
+      .replace(/[^a-z]/g, ""); // garde que les lettres
+  }
+
+  function levenshtein(a, b) {
+    const matrix = Array.from({ length: a.length + 1 }, () =>
+      Array(b.length + 1).fill(0)
+    );
+  
+    for (let i = 0; i <= a.length; i++) matrix[i][0] = i;
+    for (let j = 0; j <= b.length; j++) matrix[0][j] = j;
+  
+    for (let i = 1; i <= a.length; i++) {
+      for (let j = 1; j <= b.length; j++) {
+        const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+        matrix[i][j] = Math.min(
+          matrix[i - 1][j] + 1, // suppression
+          matrix[i][j - 1] + 1, // insertion
+          matrix[i - 1][j - 1] + cost // substitution
+        );
+      }
+    }
+  
+    return matrix[a.length][b.length];
+  }
+  
+
 function renderCards(data) {
   const grid = document.getElementById("speciesGrid");
   grid.innerHTML = "";
@@ -192,20 +223,24 @@ function changeImage(direction) {
 }
 
 function checkAnswer() {
-  const guess = document.getElementById("guessInput").value.trim().toLowerCase();
-  const correct = currentBird.nom.toLowerCase();
-  const resultDiv = document.getElementById("result");
+  const userInput = document.getElementById("guessInput").value;
+  const guess = normalize(userInput);
+  const correct = normalize(currentBird.nom);
 
-  const isCorrect = guess === correct;
-  const message = isCorrect ? "✅ Bonne réponse." : "❌ Mauvaise réponse.";
+  const distance = levenshtein(guess, correct);
+  const isCorrect =  distance <= 2;
+
+  if (isCorrect) {
+    score++; // ✅ important
+  } else {
+  }
+
+  const resultDiv = document.getElementById("result");
+  const message = isCorrect ? "✅ Bonne réponse." : `❌ Mauvaise réponse.`;
   const color = isCorrect ? "green" : "red";
 
   resultDiv.textContent = message;
   resultDiv.style.color = color;
-
-  if (navigator.vibrate) {
-    navigator.vibrate(isCorrect ? 100 : [100, 50, 100]);
-  }  
 
   total++;
   updateScoreBoard();
@@ -214,12 +249,7 @@ function checkAnswer() {
   document.getElementById("validateButton").style.display = "none";
 
   resultMessage = { text: message, color };
-
   showFullCard();
-  setTimeout(() => {
-    document.getElementById("quizContent").scrollIntoView({ behavior: "smooth", block: "start" });
-  }, 200);
-  
 }
 
 function showFullCard() {
@@ -266,7 +296,10 @@ function showFullCard() {
       </div>
     `;
   }
+  document.getElementById("quizContent").innerHTML += `<div id="resultCard" style="margin-top: 2rem; text-align: left">${html}</div>`;
 
+  document.getElementById("resultCard").scrollIntoView({ behavior: "smooth", block: "start" });
+  
   document.getElementById("quizContent").innerHTML += `<div style="margin-top: 2rem; text-align: left">${html}</div>`;
 }
 

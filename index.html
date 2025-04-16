@@ -5,14 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Exploration des Oiseaux</title>
   <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
   <link rel="manifest" href="manifest.json" />
 </head>
 <body>
-  <header>
-    <h1>Oiseaux - Exploration & Révision</h1>
-    <button class="btn-nav" onclick="switchMode('exploration')">🦉 Mode Exploration</button>
-    <button class="btn-nav" onclick="switchMode('revision')">🎧 Mode Révision</button>
+  <header class="site-header">
+    <img src="assets/Titre.png" alt="Titre Mushornithologue" class="header-logo" />
+    <div class="nav-buttons">
+      <button class="btn-nav" onclick="switchMode('exploration')">🦉 Mode Exploration</button>
+      <button class="btn-nav" onclick="switchMode('revision')">🎧 Mode Révision</button>
+    </div>
   </header>
 
   <!-- Mode Exploration -->
