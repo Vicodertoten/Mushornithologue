@@ -325,3 +325,7 @@ function navigateModal(direction) {
   openModal(current);
 }
 
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js');
+  }
+
